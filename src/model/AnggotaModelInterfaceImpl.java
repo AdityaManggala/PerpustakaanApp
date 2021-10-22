@@ -1,0 +1,156 @@
+package model;
+
+import entity.AnggotaEntity;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+public class AnggotaModelInterfaceImpl implements AnggotaModelInterface{
+
+    @Override
+    public void add(AnggotaEntity anggota) {
+        try{
+            String sql = "INSERT INTO anggota(anggota_nama, anggota_password, anggota_notelp, anggota_alamat) VALUES (?,?,?,?)";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1,anggota.getNama());
+            statement.setString(2,anggota.getPassword());
+            statement.setString(3,anggota.getNoTelp());
+            statement.setString(4,anggota.getAlamat());
+
+            statement.executeUpdate();
+        }catch (SQLException e){}
+    }
+
+    @Override
+    public void remove(int id) {
+        try {
+            String sql = "DELETE FROM anggota WHERE anggota_id = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1,id);
+            statement.executeUpdate();
+        }catch (SQLException e){}
+    }
+
+    @Override
+    public int login(String nama, String password) {
+        int cek = 0;
+        try{
+            String sql ="SELECT * FROM anggota WHERE anggota_nama =? AND anggota_password = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1,nama);
+            statement.setString(2,password);
+            ResultSet rs = statement.executeQuery();
+            if(rs.next()){
+                cek = rs.getInt("anggota_id");
+            }else {
+                cek = 0;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }return cek;
+    }
+
+    @Override
+    public ArrayList<AnggotaEntity> getAll() {
+        ArrayList<AnggotaEntity> listAnggota = new ArrayList<>();
+        try {
+            String sql = "SELECT * From anggota";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()){
+                AnggotaEntity anggota = new AnggotaEntity(
+                        rs.getString("anggota_nama"),
+                        rs.getString("anggota_password"),
+                        rs.getString("anggota_notelp"),
+                        rs.getString("anggota_alamat"));
+                anggota.setId(rs.getInt("anggota_id"));
+                listAnggota.add(anggota);
+            }
+        }catch (SQLException e){
+
+        }
+        return listAnggota;
+    }
+
+    @Override
+    public ArrayList<AnggotaEntity> getById(int id) {
+        ArrayList<AnggotaEntity> anggotaById = new ArrayList<>();
+        try{
+            String sql = "SELECT * FROM anggota WHERE anggota_id = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1,id);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()){
+                AnggotaEntity anggota = new AnggotaEntity(
+                        rs.getString("anggota_nama"),
+                        rs.getString("anggota_password"),
+                        rs.getString("anggota_notelp"),
+                        rs.getString("anggota_alamat"));
+                anggota.setId(rs.getInt("anggota_id"));
+                anggotaById.add(anggota);
+            }
+        }catch (SQLException e){}
+        return anggotaById;
+    }
+    private void extract(int id){
+        for (AnggotaEntity anggota:getById(id)) {
+            System.out.println(anggota.getId());
+            System.out.println(anggota.getNama());
+            System.out.println(anggota.getAlamat());
+            System.out.println(anggota.getPassword());
+            System.out.println(anggota.getNoTelp());
+        }
+    }
+
+    public static void main(String[] args) {
+        AnggotaModelInterfaceImpl anggotaModelInterface = new AnggotaModelInterfaceImpl();
+        anggotaModelInterface.extract(3);
+    }
+    @Override
+    public void resetPassword(int id) {
+        try{
+            String sql = "UPDATE anggota SET anggota_password = '12345678' WHERE anggota_id = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1,id);
+            statement.executeUpdate();
+        }catch (SQLException e){
+
+        }
+    }
+
+    @Override
+    public void updateNoTelp(String noTelp, int id) {
+        try{
+            String sql = "UPDATE anggota SET anggota_notelp = ? WHERE anggota_id = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1,noTelp);
+            statement.setInt(2,id);
+            statement.executeUpdate();
+        }catch (SQLException e){}
+    }
+
+    @Override
+    public void updateAlamat(String alamat, int id) {
+        try{
+            String sql = "UPDATE anggota SET anggota_alamat = ? WHERE anggota_id = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1,alamat);
+            statement.setInt(2,id);
+            statement.executeUpdate();
+        }catch (SQLException e){}
+    }
+
+    @Override
+    public void updatePassword(String password, int id) {
+        try{
+            String sql = "UPDATE anggota SET anggota_password = ? WHERE anggota_id = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1,password);
+            statement.setInt(2,id);
+            statement.executeUpdate();
+        }catch (SQLException e){}
+    }
+}

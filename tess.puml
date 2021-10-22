@@ -1,0 +1,36 @@
+@startuml
+class model.BukuModelInterfaceImpl {
+- String sql
++ void add(BukuEntity)
++ void updateJudul(String,String)
++ void updatePenerbit(String,String)
++ void delete(String)
++ ArrayList<BukuEntity> getAll()
++ ArrayList<BukuEntity> getById(String)
+}
+class controller.BukuControllerInterfaceImpl {
+~ BukuModelInterface bukuModelInterface
+~ <<Create>> BukuControllerInterfaceImpl(BukuModelInterface)
++ void InsertBuku(String,String,String,Date,int)
++ void deleteBuku(String)
++ void updateBuku(int,String,String)
+}
+interface model.BukuModelInterface {
+~ Connection conn
+~ void add(BukuEntity)
+~ void updateJudul(String,String)
+~ void updatePenerbit(String,String)
+~ void delete(String)
+~ ArrayList<BukuEntity> getAll()
+~ ArrayList<BukuEntity> getById(String)
+}
+interface controller.BukuControllerInterface {
+~ void InsertBuku(String,String,String,Date,int)
+~ void deleteBuku(String)
+~ void updateBuku(int,String,String)
+}
+
+
+model.BukuModelInterface <|.. model.BukuModelInterfaceImpl
+controller.BukuControllerInterface <|.. controller.BukuControllerInterfaceImpl
+@enduml

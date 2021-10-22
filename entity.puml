@@ -1,0 +1,76 @@
+@startuml
+class entity.BukuEntity {
+- String isbn
+- Date terbit
+- int halaman
++ <<Create>> BukuEntity(String,String,String,Date,int)
++ String getIsbn()
++ void setIsbn(String)
++ String getJudul()
++ void setJudul(String)
++ String getPenerbit()
++ void setPenerbit(String)
++ Date getTerbit()
++ void setTerbit(Date)
++ int getHalaman()
++ void setHalaman(int)
+}
+class entity.AdminEntity {
+- int id
++ <<Create>> AdminEntity(String,String)
++ int getId()
+}
+class entity.AnggotaEntity {
+- String noTelp
+- String alamat
+- int id
++ <<Create>> AnggotaEntity(String,String,String,String)
++ int getId()
++ void setId(int)
++ String getNoTelp()
++ void setNoTelp(String)
++ String getAlamat()
++ void setAlamat(String)
+}
+abstract class entity.UserEntity {
+# String nama
+# String password
++ <<Create>> UserEntity(String,String)
++ String getNama()
++ void setNama(String)
++ String getPassword()
++ void setPassword(String)
+}
+class entity.PeminjamanEntity {
+- String idPeminjaman
+- String isbnBuku
+- String judulBuku
+- String namaAnggota
+- int idAnggota
+- Date tglPeminjaman
+- Date tglPengembalian
+- Boolean statusPeminjaman
++ <<Create>> PeminjamanEntity(String,int)
++ <<Create>> PeminjamanEntity()
++ String getIdPeminjaman()
++ void setIdPeminjaman(String)
++ String getIsbnBuku()
++ void setIsbnBuku(String)
++ String getJudulBuku()
++ void setJudulBuku(String)
++ String getNamaAnggota()
++ void setNamaAnggota(String)
++ int getIdAnggota()
++ void setIdAnggota(int)
++ Date getTglPeminjaman()
++ void setTglPeminjaman(Date)
++ Date getTglPengembalian()
++ void setTglPengembalian(Date)
++ Boolean getStatusPeminjaman()
++ void setStatusPeminjaman(Boolean)
+}
+
+
+entity.UserEntity <|-- entity.AdminEntity
+entity.UserEntity <|-- entity.AnggotaEntity
+@enduml

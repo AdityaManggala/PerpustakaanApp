@@ -1,0 +1,71 @@
+@startuml
+interface model.PeminjamanModelInterface {
+~ Connection conn
+~ void add(PeminjamanEntity)
+~ void verifPengembalian(String)
+~ ArrayList<PeminjamanEntity> getAll()
+~ ArrayList<PeminjamanEntity> getById(String)
+~ ArrayList<PeminjamanEntity> getByPeminjam(int)
+}
+class model.BukuModelInterfaceImpl {
++ void add(BukuEntity)
++ void updateJudul(String,String)
++ void updatePenerbit(String,String)
++ void delete(String)
++ ArrayList<BukuEntity> getAll()
++ ArrayList<BukuEntity> getById(String)
+}
+class model.AdminModelInterfaceImpl {
++ boolean login(String,String)
+}
+interface model.AdminModelInterface {
+~ Connection conn
+~ boolean login(String,String)
+}
+interface model.BukuModelInterface {
+~ Connection conn
+~ void add(BukuEntity)
+~ void updateJudul(String,String)
+~ void updatePenerbit(String,String)
+~ void delete(String)
+~ ArrayList<BukuEntity> getAll()
+~ ArrayList<BukuEntity> getById(String)
+}
+class model.PeminjamanModelInterfaceImpl {
+- String generateIdPeminjaman()
++ void add(PeminjamanEntity)
++ void verifPengembalian(String)
++ ArrayList<PeminjamanEntity> getAll()
++ ArrayList<PeminjamanEntity> getById(String)
++ ArrayList<PeminjamanEntity> getByPeminjam(int)
+}
+interface model.AnggotaModelInterface {
+~ Connection conn
+~ void add(AnggotaEntity)
+~ void remove(int)
+~ int login(String,String)
+~ ArrayList<AnggotaEntity> getAll()
+~ ArrayList<AnggotaEntity> getById(int)
+~ void resetPassword(int)
+~ void updateNoTelp(String,int)
+~ void updateAlamat(String,int)
+~ void updatePassword(String,int)
+}
+class model.AnggotaModelInterfaceImpl {
++ void add(AnggotaEntity)
++ void remove(int)
++ int login(String,String)
++ ArrayList<AnggotaEntity> getAll()
++ ArrayList<AnggotaEntity> getById(int)
++ void resetPassword(int)
++ void updateNoTelp(String,int)
++ void updateAlamat(String,int)
++ void updatePassword(String,int)
+}
+
+
+model.BukuModelInterface <|.. model.BukuModelInterfaceImpl
+model.AdminModelInterface <|.. model.AdminModelInterfaceImpl
+model.PeminjamanModelInterface <|.. model.PeminjamanModelInterfaceImpl
+model.AnggotaModelInterface <|.. model.AnggotaModelInterfaceImpl
+@enduml

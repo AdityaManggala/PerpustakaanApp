@@ -1,0 +1,5 @@
+@startuml
+class helper.DbUtil {
++ {static} Connection getConection()
+}
+@enduml

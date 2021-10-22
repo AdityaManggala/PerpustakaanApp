@@ -1,0 +1,29 @@
+@startuml
+class PerpustakaanApp {
++ {static} Scanner input
++ {static} AdminControllerInterface adminController
++ {static} AnggotaControllerInterface anggotaController
++ {static} BukuControllerInterface bukuController
++ {static} PeminjamanControllerInterface peminjamanController
++ {static} void main(String[])
++ {static} void console()
++ {static} void registrasi()
++ {static} void login()
++ {static} void loginAdmin()
++ {static} void loginAnggota()
++ {static} void menuAdmin()
++ {static} void daftarAnggota()
++ {static} void hapusAnggota()
++ {static} void resetPasswordAnggota()
++ {static} void daftarBuku()
++ {static} void tambahDaftarBuku()
++ {static} void hapusBuku()
++ {static} void lihatDaftarPeminjaman()
++ {static} void verifikasiPengembalian()
++ {static} void menuAnggota(int)
++ {static} void lihatRiwayatPeminjaman(int)
++ {static} void pinjamBuku(int)
++ {static} void editDataAnggota(int)
++ {static} void dataAnggotaById(int)
+}
+@enduml

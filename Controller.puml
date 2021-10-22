@@ -1,0 +1,62 @@
+@startuml
+class controller.BukuControllerInterfaceImpl {
++ void InsertBuku(String,String,String,Date,int)
++ void deleteBuku(String)
++ void updateBuku(int,String,String)
++ ArrayList<BukuEntity> showAllData()
+}
+class controller.PeminjamanControllerInterfaceImpl {
++ void insertPeminjaman(String,int)
++ void verifPengembalian(String)
++ ArrayList<PeminjamanEntity> showAllData()
++ ArrayList<PeminjamanEntity> showDataByPeminjam(int)
+}
+class controller.AllObjectModel {
++ {static} AdminModelInterface adminModel
++ {static} AnggotaModelInterface anggotaModel
++ {static} BukuModelInterface bukuModel
++ {static} PeminjamanModelInterface peminjamanModel
+}
+interface controller.AnggotaControllerInterface {
+~ void insertAnggota(String,String,String,String)
+~ int login(String,String)
+~ ArrayList<AnggotaEntity> showAllData()
+~ ArrayList<AnggotaEntity> showDataAnggotaById(int)
+~ void updateAkun(int,String,int)
+}
+class controller.AdminControllerInterfaceImpl {
++ boolean login(String,String)
++ void deleteAnggota(int)
++ void resetPassAnggota(int)
+}
+interface controller.AdminControllerInterface {
+~ boolean login(String,String)
+~ void deleteAnggota(int)
+~ void resetPassAnggota(int)
+}
+class controller.AnggotaControllerInterfaceImpl {
++ void insertAnggota(String,String,String,String)
++ int login(String,String)
++ ArrayList<AnggotaEntity> showAllData()
++ ArrayList<AnggotaEntity> showDataAnggotaById(int)
++ void updateAkun(int,String,int)
+}
+interface controller.PeminjamanControllerInterface {
+~ void insertPeminjaman(String,int)
+~ void verifPengembalian(String)
+~ ArrayList<PeminjamanEntity> showAllData()
+~ ArrayList<PeminjamanEntity> showDataByPeminjam(int)
+}
+interface controller.BukuControllerInterface {
+~ void InsertBuku(String,String,String,Date,int)
+~ void deleteBuku(String)
+~ void updateBuku(int,String,String)
+~ ArrayList<BukuEntity> showAllData()
+}
+
+
+controller.BukuControllerInterface <|.. controller.BukuControllerInterfaceImpl
+controller.PeminjamanControllerInterface <|.. controller.PeminjamanControllerInterfaceImpl
+controller.AdminControllerInterface <|.. controller.AdminControllerInterfaceImpl
+controller.AnggotaControllerInterface <|.. controller.AnggotaControllerInterfaceImpl
+@enduml
