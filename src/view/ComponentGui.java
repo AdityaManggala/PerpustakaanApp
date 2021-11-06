@@ -1,36 +1,70 @@
 package view;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class ComponentGui extends JComponent{
     protected JFrame jendela = new JFrame();
-    protected JButton btnlogin = new JButton("login");
-    protected JButton btnregister = new JButton("test");
+    protected JPanel adminpanel = new JPanel();
+    protected JPanel datadiripanel = new JPanel();
+    protected JPanel pinjampanel = new JPanel();
+    protected JPanel riwayatpinjampanel = new JPanel();
+    protected JPanel peminjamanbukupanel = new JPanel();
+    protected JPanel daftaranggota = new JPanel();
+    protected JPanel daftarbuku = new JPanel();
+    protected JPanel daftarpinjaman = new JPanel();
+    protected JPanel btngroupbuku = new JPanel();
+    protected JPanel btngroupanggota = new JPanel();
     protected JLabel lblnama = new JLabel("Nama");
     protected JLabel lblpassword = new JLabel("Password");
+    protected JLabel lblregister = new JLabel("Register");
+    protected JLabel lblalamat = new JLabel("Alamat");
+    protected JLabel lblnotelp = new JLabel("No Telp");
+    protected JLabel lblisbn = new JLabel("ISBN");
+    protected JLabel lbljudulbuku = new JLabel("Judul");
+    protected JLabel lblpenerbit = new JLabel("Penerbit");
+    protected JLabel lblterbit = new JLabel("Tahun Terbit");
+    protected JLabel lblhalaman = new JLabel("Jumlah Halaman");
     protected JLabel bingkaigambar = new JLabel();
-    protected JButton btnanggota = new JButton("Anggota");
-    protected JButton btnbuku = new JButton("Buku");
-    protected JButton btnpeminjaman = new JButton("Peminjaman");
-    protected JButton btnverif = new JButton("Verif Pengembalian");
-    protected JButton btnpinjam = new JButton("Pinjam");
-    protected JButton btnaccount = new JButton("Akun");
-    protected JButton btnlogout = new JButton("Log Out");
+    protected JTextField flisbn = new JTextField();
+    protected JTextField fljudulbuku = new JTextField();
+    protected JTextField flpenerbit = new JTextField();
+    protected JTextField flterbit = new JTextField();
+    protected JTextField flhalaman = new JTextField();
     protected JTextField flnama = new JTextField();
     protected JPasswordField flpass = new JPasswordField();
+    protected JTextField flalamat = new JTextField();
+    protected JTextField flnotelp = new JTextField();
+    protected JButton btnlogin = new JButton("Login");
+    protected JButton btnloginadmin = new JButton();
+    protected JButton btnloginanggota = new JButton("Login As Anggota");
+    protected JButton btnregister = new JButton("Register");
+    protected JButton btnubahakun = new JButton("Ubah Informasi");
+    protected JButton btntambahbuku = new JButton("Tambah");
+    protected JButton btnubahbuku = new JButton("Ubah");
+    protected JButton btnhapusbuku = new JButton("Hapus");
+    protected JButton btnverif = new JButton("Verif Pengembalian");
+    protected JButton btnresetpass = new JButton("Reset Password");
+    protected JButton btnhapusanggota = new JButton("Hapus Anggota");
+    protected JButton btnpinjam = new JButton("Pinjam");
+    protected JButton btnlogout = new JButton("Log Out");
 
-    protected JPanel judul = new JPanel();
-    protected JPanel menu = new JPanel();
-    protected JPanel isi = new JPanel();
-    protected JPanel isi2 = new JPanel();
+    protected TitledBorder ttldaftaranggota = BorderFactory.createTitledBorder("Daftar Anggota");
+    protected TitledBorder ttldaftarbuku = BorderFactory.createTitledBorder("Daftar Buku");
+    protected TitledBorder ttldaftarpinjaman = BorderFactory.createTitledBorder("Daftar Pinjaman");
+    protected TitledBorder ttlakunsetting = BorderFactory.createTitledBorder("Informasi Akun");
+    protected TitledBorder ttlpinjam = BorderFactory.createTitledBorder("Peminjaman Buku");
+    protected TitledBorder ttlriwayatpinjam = BorderFactory.createTitledBorder("Riwayat Peminjaman Buku");
 
 
-    protected JTable tblanggota = new JTable();
-    protected JTable tblbuku = new JTable();
-    protected JTable tblpeminjaman = new JTable();
+    protected JTable tblanggota = new JTable(dataTableAnggota());
+    protected JTable tblbuku = new JTable(dataTableBuku());
+    protected JTable tblpeminjaman = new JTable(dataTablePeminjaman());
+
+    protected JTabbedPane tab = new JTabbedPane();
 
     protected JScrollPane spanggota = new JScrollPane(tblanggota);
     protected JScrollPane spbuku = new JScrollPane(tblbuku);
@@ -39,25 +73,31 @@ public class ComponentGui extends JComponent{
     BufferedImage bufferedImage = null;
     Image gambarresize;
 
-//    void kosong(){
-//        fieldnama.setText(null);
-//        fieldnpm.setText(null);
-//        fieldpassword.setText(null);
-//        fieldnotelp.setText(null);
-//    }
+    void kosong(){
+        flnama.setText(null);
+        flalamat.setText(null);
+        flpass.setText(null);
+        flnotelp.setText(null);
+        flisbn.setText(null);
+        fljudulbuku.setText(null);
+        flpenerbit.setText(null);
+        flterbit.setText(null);
+        flhalaman.setText(null);
+    }
 
     protected DefaultTableModel dataTableBuku(){
         DefaultTableModel dataBuku = new DefaultTableModel();
-        Object[] kolom = {"ISBN","JUDUL","PENERBIT","TERBIT","HALAMAN"};
+        Object[] kolom = {"NO","ISBN","JUDUL","PENERBIT","TERBIT","HALAMAN"};
         dataBuku.setColumnIdentifiers(kolom);
         int size = AllObjectController.bukuController.showAllData().size();
         for (int i = 0; i < size; i++) {
-            Object[] data = new Object[5];
-            data[0] = AllObjectController.bukuController.showAllData().get(i).getIsbn();
-            data[1] = AllObjectController.bukuController.showAllData().get(i).getJudul();
-            data[2] = AllObjectController.bukuController.showAllData().get(i).getPenerbit();
-            data[3] = AllObjectController.bukuController.showAllData().get(i).getTerbit();
-            data[4] = AllObjectController.bukuController.showAllData().get(i).getHalaman();
+            Object[] data = new Object[6];
+            data[0] = i+1;
+            data[1] = AllObjectController.bukuController.showAllData().get(i).getIsbn();
+            data[2] = AllObjectController.bukuController.showAllData().get(i).getJudul();
+            data[3] = AllObjectController.bukuController.showAllData().get(i).getPenerbit();
+            data[4] = AllObjectController.bukuController.showAllData().get(i).getTerbit();
+            data[5] = AllObjectController.bukuController.showAllData().get(i).getHalaman();
             dataBuku.addRow(data);
         }
         return dataBuku;
@@ -87,7 +127,7 @@ public class ComponentGui extends JComponent{
         dataPeminjaman.setColumnIdentifiers(kolom);
         int size = AllObjectController.peminjamanController.showAllData().size();
         for (int i = 0; i < size; i++) {
-            Object[] data = new Object[7];
+            Object[] data = new Object[8];
             data[0] = i+1;
             data[1] = AllObjectController.peminjamanController.showAllData().get(i).getIdPeminjaman();
             data[2] = AllObjectController.peminjamanController.showAllData().get(i).getIsbnBuku();
@@ -95,7 +135,7 @@ public class ComponentGui extends JComponent{
             data[4] = AllObjectController.peminjamanController.showAllData().get(i).getNamaAnggota();
             data[5] = AllObjectController.peminjamanController.showAllData().get(i).getTglPeminjaman();
             data[6] = AllObjectController.peminjamanController.showAllData().get(i).getTglPengembalian();
-            data[7] = AllObjectController.peminjamanController.showAllData().get(i).getStatusPeminjaman();
+            data[7] = AllObjectController.peminjamanController.showAllData().get(i).getStatusPeminjaman()? "Telah Kembali":"Masih dipinjam";
             dataPeminjaman.addRow(data);
         }
         return dataPeminjaman;
@@ -103,17 +143,17 @@ public class ComponentGui extends JComponent{
 
     protected DefaultTableModel dataTablePeminjamanByUser(int id){
         DefaultTableModel dataPeminjaman = new DefaultTableModel();
-        Object[] kolom = {"NO","ID","ISBN","TGL PINJAM","TGL KEMBALI","STATUS KEMBALI"};
+        Object[] kolom = {"NO","ID","JUDUL","TGL PINJAM","TGL KEMBALI","STATUS KEMBALI"};
         dataPeminjaman.setColumnIdentifiers(kolom);
         int size = AllObjectController.peminjamanController.showDataByPeminjam(id).size();
         for (int i = 0; i < size; i++) {
-            Object[] data = new Object[5];
+            Object[] data = new Object[6];
             data[0] = i+1;
             data[1] = AllObjectController.peminjamanController.showDataByPeminjam(id).get(i).getIdPeminjaman();
-            data[2] = AllObjectController.peminjamanController.showDataByPeminjam(id).get(i).getIsbnBuku();
+            data[2] = AllObjectController.peminjamanController.showDataByPeminjam(id).get(i).getJudulBuku();
             data[3] = AllObjectController.peminjamanController.showDataByPeminjam(id).get(i).getTglPeminjaman();
             data[4] = AllObjectController.peminjamanController.showDataByPeminjam(id).get(i).getTglPengembalian();
-            data[5] = AllObjectController.peminjamanController.showDataByPeminjam(id).get(i).getStatusPeminjaman();
+            data[5] = AllObjectController.peminjamanController.showDataByPeminjam(id).get(i).getStatusPeminjaman()? "Telah Kembali":"Masih dipinjam";
             dataPeminjaman.addRow(data);
         }
         return dataPeminjaman;

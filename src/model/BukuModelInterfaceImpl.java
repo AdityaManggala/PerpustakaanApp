@@ -59,7 +59,7 @@ public class BukuModelInterfaceImpl implements BukuModelInterface{
     @Override
     public void delete(String isbn) {
         try{
-            String sql="DELETE FROM buku WHERE buku_isbn = ?";
+            String sql="UPDATE buku SET buku_ketersediaan = FALSE WHERE buku_isbn = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, isbn);
             statement.executeUpdate();
@@ -72,7 +72,7 @@ public class BukuModelInterfaceImpl implements BukuModelInterface{
     public ArrayList<BukuEntity> getAll() {
         ArrayList<BukuEntity> listBuku = new ArrayList<>();
         try{
-            String sql="SELECT * FROM buku";
+            String sql="SELECT * FROM buku WHERE buku_ketersediaan = TRUE";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()){
@@ -88,5 +88,4 @@ public class BukuModelInterfaceImpl implements BukuModelInterface{
         }
         return listBuku;
     }
-
 }
