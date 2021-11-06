@@ -1,9 +1,7 @@
 import controller.*;
 import entity.AnggotaEntity;
+import view.LoginGui;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
 public class PerpustakaanApp {
@@ -21,7 +19,7 @@ public class PerpustakaanApp {
         int pilihan = input.nextInt();
         switch (pilihan){
             case 1:
-                //
+                gui();
                 break;
             case 2:
                 console();
@@ -30,6 +28,11 @@ public class PerpustakaanApp {
                 System.out.println("INPUTAN TIDAK DIKETAHUI");
                 break;
         }
+    }
+
+    public static void gui(){
+        LoginGui loginGui = new LoginGui();
+        loginGui.setVisible(true);
     }
 
     public static void console(){
@@ -303,7 +306,7 @@ public class PerpustakaanApp {
         for (int i = 0; i < size; i++) {
             String status = !peminjamanController.showDataByPeminjam(id).get(i).getStatusPeminjaman() ? "Masih dipinjam":"Telah Kembali";
             System.out.println((i+1)+". "+peminjamanController.showDataByPeminjam(id).get(i).getIdPeminjaman()+" "+
-                    peminjamanController.showDataByPeminjam(id).get(i).getIsbnBuku()+" "+
+                    peminjamanController.showDataByPeminjam(id).get(i).getJudulBuku()+" "+
                     peminjamanController.showDataByPeminjam(id).get(i).getTglPeminjaman()+" "+
                     peminjamanController.showDataByPeminjam(id).get(i).getTglPengembalian()+" "+
                     status

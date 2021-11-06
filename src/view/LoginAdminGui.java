@@ -12,9 +12,9 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class LoginGui extends ComponentGui {
+public class LoginAdminGui extends ComponentGui {
 
-    public LoginGui() {
+    LoginAdminGui() {
         initComponent();
     }
     String pathicon;
@@ -44,22 +44,16 @@ public class LoginGui extends ComponentGui {
         btnlogin.setBorder(null);
         jendela.add(btnlogin);
 
-        btnregister.setBounds(70, 400, 180, 25);
-        btnregister.setBorder(null);
-        btnregister.setBackground(new Color(0xf0e5d8));
-        jendela.add(btnregister);
-
-        btnloginadmin.setBounds(0,425,20,20);
-        btnloginadmin.setBorder(null);
-        btnloginadmin.setBorderPainted(false);
-        btnloginadmin.setFocusPainted(false);
-        btnloginadmin.setBackground(Color.black);
-        jendela.add(btnloginadmin);
+        btnloginanggota.setBounds(70,400,180,25);
+        btnloginanggota.setBorder(null);
+        btnloginanggota.setForeground(Color.black);
+        btnloginanggota.setBackground(new Color(0xf0e5d8));
+        jendela.add(btnloginanggota);
 
         bingkaigambar.setBounds(80,70,150,150);
         jendela.add(bingkaigambar);
 
-        pathicon = "./src/image/books.png";
+        pathicon = "./src/image/admin.png";
 
         try {
             bufferedImage = ImageIO.read(new File(pathicon));
@@ -67,27 +61,8 @@ public class LoginGui extends ComponentGui {
             Logger.getLogger(LoginGui.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        gambarresize = bufferedImage.getScaledInstance(150,150,Image.SCALE_SMOOTH);
+        gambarresize = bufferedImage.getScaledInstance(150, 150,Image.SCALE_SMOOTH);
         bingkaigambar.setIcon(new ImageIcon(gambarresize));
-
-        btnregister.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                btnregister.setForeground(Color.blue);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                btnregister.setForeground(Color.black);
-            }
-        });
-        btnregister.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                jendela.dispose();
-                new RegisterAnggotaGui().setVisible(true);
-            }
-        });
 
         btnlogin.addMouseListener(new MouseAdapter() {
             @Override
@@ -108,10 +83,9 @@ public class LoginGui extends ComponentGui {
             public void actionPerformed(ActionEvent e) {
                 String username = flnama.getText();
                 String pass = flpass.getText();
-                if(AllObjectController.anggotaController.login(username,pass)!=0){
+                if(AllObjectController.adminController.login(username,pass)){
                     jendela.dispose();
-                    AnggotaGui anggotaGui = new AnggotaGui(AllObjectController.anggotaController.login(username,pass));
-                    anggotaGui.setVisible(true);
+                    AdminGui adminGuiNew = new AdminGui();
                 }else {
                     JOptionPane.showMessageDialog(null,"GAGAL LOGIN");
                     kosong();
@@ -119,12 +93,23 @@ public class LoginGui extends ComponentGui {
             }
         });
 
-        btnloginadmin.addActionListener(new ActionListener() {
+        btnloginanggota.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                btnloginanggota.setForeground(Color.blue);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                btnloginanggota.setForeground(Color.black);
+            }
+        });
+
+        btnloginanggota.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 jendela.dispose();
-                LoginAdminGui loginAdminGui = new LoginAdminGui();
-                loginAdminGui.setVisible(true);
+                new LoginGui().setVisible(true);
             }
         });
     }

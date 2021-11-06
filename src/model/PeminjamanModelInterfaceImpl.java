@@ -64,7 +64,7 @@ public class PeminjamanModelInterfaceImpl implements PeminjamanModelInterface{
     public ArrayList<PeminjamanEntity> getAll() {
         ArrayList<PeminjamanEntity> listPeminjaman = new ArrayList<>();
         try {
-            String sql = "SELECT p.peminjaman_id, p.buku_isbn, b.buku_judul, a.anggota_nama, p.peminjaman_tgl, p.pengembalian_tgl, p.status " +
+            String sql = "SELECT p.*, b.buku_judul, a.anggota_nama " +
                     "FROM peminjaman p " +
                     "JOIN anggota a on p.anggota_id = a.anggota_id " +
                     "JOIN buku b on p.buku_isbn = b.buku_isbn " +
@@ -92,14 +92,14 @@ public class PeminjamanModelInterfaceImpl implements PeminjamanModelInterface{
     public ArrayList<PeminjamanEntity> getByPeminjam(int id) {
         ArrayList<PeminjamanEntity> peminjamanByUser = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM peminjaman WHERE anggota_id = ? ORDER BY peminjaman_tgl";
+            String sql = "SELECT p.*, b.buku_judul FROM peminjaman p Join buku b on p.buku_isbn = b.buku_isbn WHERE anggota_id = ? ORDER BY peminjaman_tgl";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 PeminjamanEntity peminjaman = new PeminjamanEntity();
                 peminjaman.setIdPeminjaman(rs.getString("peminjaman_id"));
-                peminjaman.setIsbnBuku(rs.getString("buku_isbn"));
+                peminjaman.setJudulBuku(rs.getString("buku_judul"));
                 peminjaman.setTglPeminjaman(rs.getDate("peminjaman_tgl"));
                 peminjaman.setTglPengembalian(rs.getDate("pengembalian_tgl"));
                 peminjaman.setStatusPeminjaman(rs.getBoolean("status"));

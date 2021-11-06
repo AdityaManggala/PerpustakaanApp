@@ -21,24 +21,24 @@ public class AnggotaModelInterfaceImpl implements AnggotaModelInterface{
             statement.setString(4,anggota.getAlamat());
 
             statement.executeUpdate();
-        }catch (SQLException e){}
+        }catch (SQLException e){e.printStackTrace();}
     }
 
     @Override
     public void remove(int id) {
         try {
-            String sql = "DELETE FROM anggota WHERE anggota_id = ?";
+            String sql = "UPDATE anggota SET anggota_aktif = False WHERE anggota_id = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setInt(1,id);
             statement.executeUpdate();
-        }catch (SQLException e){}
+        }catch (SQLException e){e.printStackTrace();}
     }
 
     @Override
     public int login(String nama, String password) {
         int cek = 0;
         try{
-            String sql ="SELECT * FROM anggota WHERE anggota_nama =? AND anggota_password = ?";
+            String sql ="SELECT * FROM anggota WHERE anggota_nama =? AND anggota_password = ? AND anggota_aktif = TRUE";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1,nama);
             statement.setString(2,password);
@@ -57,7 +57,7 @@ public class AnggotaModelInterfaceImpl implements AnggotaModelInterface{
     public ArrayList<AnggotaEntity> getAll() {
         ArrayList<AnggotaEntity> listAnggota = new ArrayList<>();
         try {
-            String sql = "SELECT * From anggota";
+            String sql = "SELECT * From anggota WHERE anggota_aktif = TRUE";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()){
@@ -69,9 +69,7 @@ public class AnggotaModelInterfaceImpl implements AnggotaModelInterface{
                 anggota.setId(rs.getInt("anggota_id"));
                 listAnggota.add(anggota);
             }
-        }catch (SQLException e){
-
-        }
+        }catch (SQLException e){e.printStackTrace();}
         return listAnggota;
     }
 
@@ -92,23 +90,10 @@ public class AnggotaModelInterfaceImpl implements AnggotaModelInterface{
                 anggota.setId(rs.getInt("anggota_id"));
                 anggotaById.add(anggota);
             }
-        }catch (SQLException e){}
+        }catch (SQLException e){e.printStackTrace();}
         return anggotaById;
     }
-    private void extract(int id){
-        for (AnggotaEntity anggota:getById(id)) {
-            System.out.println(anggota.getId());
-            System.out.println(anggota.getNama());
-            System.out.println(anggota.getAlamat());
-            System.out.println(anggota.getPassword());
-            System.out.println(anggota.getNoTelp());
-        }
-    }
 
-    public static void main(String[] args) {
-        AnggotaModelInterfaceImpl anggotaModelInterface = new AnggotaModelInterfaceImpl();
-        anggotaModelInterface.extract(3);
-    }
     @Override
     public void resetPassword(int id) {
         try{
@@ -116,9 +101,7 @@ public class AnggotaModelInterfaceImpl implements AnggotaModelInterface{
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setInt(1,id);
             statement.executeUpdate();
-        }catch (SQLException e){
-
-        }
+        }catch (SQLException e){e.printStackTrace();}
     }
 
     @Override
@@ -129,7 +112,7 @@ public class AnggotaModelInterfaceImpl implements AnggotaModelInterface{
             statement.setString(1,noTelp);
             statement.setInt(2,id);
             statement.executeUpdate();
-        }catch (SQLException e){}
+        }catch (SQLException e){e.printStackTrace();}
     }
 
     @Override
@@ -140,7 +123,7 @@ public class AnggotaModelInterfaceImpl implements AnggotaModelInterface{
             statement.setString(1,alamat);
             statement.setInt(2,id);
             statement.executeUpdate();
-        }catch (SQLException e){}
+        }catch (SQLException e){e.printStackTrace();}
     }
 
     @Override
@@ -151,6 +134,6 @@ public class AnggotaModelInterfaceImpl implements AnggotaModelInterface{
             statement.setString(1,password);
             statement.setInt(2,id);
             statement.executeUpdate();
-        }catch (SQLException e){}
+        }catch (SQLException e){e.printStackTrace();}
     }
 }

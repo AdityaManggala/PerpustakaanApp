@@ -1,10 +1,11 @@
 CREATE TABLE buku
 (
-    buku_isbn     VARCHAR(13)  NOT NULL PRIMARY KEY,
-    buku_judul    VARCHAR(255) NOT NULL,
-    buku_penerbit VARCHAR(50)  NOT NULL,
-    buku_terbit   INT          NOT NULL,
-    buku_halaman  INT          NOT NULL
+    buku_isbn         VARCHAR(13)       NOT NULL PRIMARY KEY,
+    buku_judul        VARCHAR(255)      NOT NULL,
+    buku_penerbit     VARCHAR(50)       NOT NULL,
+    buku_terbit       INT               NOT NULL,
+    buku_halaman      INT               NOT NULL,
+    buku_ketersediaan BOOL DEFAULT TRUE NOT NULL
 );
 
 CREATE TABLE admin
@@ -20,7 +21,8 @@ CREATE TABLE anggota
     anggota_nama     VARCHAR(20)  NOT NULL,
     anggota_password VARCHAR(15)  NOT NULL,
     anggota_notelp   VARCHAR(12)  NOT NULL,
-    anggota_alamat   VARCHAR(100) NOT NULL
+    anggota_alamat   VARCHAR(100) NOT NULL,
+    anggota_aktif    BOOL DEFAULT TRUE NOT NULL
 );
 
 CREATE TABLE peminjaman
