@@ -12,7 +12,7 @@ public interface AnggotaModelInterface {
     void remove(int id);
     int login(String nama, String password);
     ArrayList<AnggotaEntity> getAll();
-    ArrayList<AnggotaEntity> getById(int id);
+    AnggotaEntity getById(int id);
     void resetPassword(int id);
     void updateNoTelp(String noTelp, int id);
     void updateAlamat(String alamat, int id);

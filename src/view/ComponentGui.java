@@ -130,9 +130,9 @@ public class ComponentGui extends JComponent{
             Object[] data = new Object[8];
             data[0] = i+1;
             data[1] = AllObjectController.peminjamanController.showAllData().get(i).getIdPeminjaman();
-            data[2] = AllObjectController.peminjamanController.showAllData().get(i).getIsbnBuku();
-            data[3] = AllObjectController.peminjamanController.showAllData().get(i).getJudulBuku();
-            data[4] = AllObjectController.peminjamanController.showAllData().get(i).getNamaAnggota();
+            data[2] = AllObjectController.peminjamanController.showAllData().get(i).getBuku().getIsbn();
+            data[3] = AllObjectController.peminjamanController.showAllData().get(i).getBuku().getJudul();
+            data[4] = AllObjectController.peminjamanController.showAllData().get(i).getAnggota().getNama();
             data[5] = AllObjectController.peminjamanController.showAllData().get(i).getTglPeminjaman();
             data[6] = AllObjectController.peminjamanController.showAllData().get(i).getTglPengembalian();
             data[7] = AllObjectController.peminjamanController.showAllData().get(i).getStatusPeminjaman()? "Telah Kembali":"Masih dipinjam";
@@ -150,7 +150,7 @@ public class ComponentGui extends JComponent{
             Object[] data = new Object[6];
             data[0] = i+1;
             data[1] = AllObjectController.peminjamanController.showDataByPeminjam(id).get(i).getIdPeminjaman();
-            data[2] = AllObjectController.peminjamanController.showDataByPeminjam(id).get(i).getJudulBuku();
+            data[2] = AllObjectController.peminjamanController.showDataByPeminjam(id).get(i).getBuku().getJudul();
             data[3] = AllObjectController.peminjamanController.showDataByPeminjam(id).get(i).getTglPeminjaman();
             data[4] = AllObjectController.peminjamanController.showDataByPeminjam(id).get(i).getTglPengembalian();
             data[5] = AllObjectController.peminjamanController.showDataByPeminjam(id).get(i).getStatusPeminjaman()? "Telah Kembali":"Masih dipinjam";

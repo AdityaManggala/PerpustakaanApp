@@ -1,5 +1,6 @@
 import controller.*;
 import entity.AnggotaEntity;
+import entity.BukuEntity;
 import view.LoginGui;
 
 import java.util.Scanner;
@@ -262,9 +263,9 @@ public class PerpustakaanApp {
         for (int i = 0; i < size; i++) {
             String status = !peminjamanController.showAllData().get(i).getStatusPeminjaman() ? "Masih dipinjam":"Telah Kembali";
             System.out.println((i+1)+". "+peminjamanController.showAllData().get(i).getIdPeminjaman()+" "+
-                    peminjamanController.showAllData().get(i).getIsbnBuku()+" "+
-                    peminjamanController.showAllData().get(i).getJudulBuku()+" "+
-                    peminjamanController.showAllData().get(i).getNamaAnggota()+" "+
+                    peminjamanController.showAllData().get(i).getBuku().getIsbn()+" "+
+                    peminjamanController.showAllData().get(i).getBuku().getJudul()+" "+
+                    peminjamanController.showAllData().get(i).getAnggota().getNama()+" "+
                     peminjamanController.showAllData().get(i).getTglPeminjaman()+" "+
                     peminjamanController.showAllData().get(i).getTglPengembalian()+" "+status);
         }
@@ -306,7 +307,7 @@ public class PerpustakaanApp {
         for (int i = 0; i < size; i++) {
             String status = !peminjamanController.showDataByPeminjam(id).get(i).getStatusPeminjaman() ? "Masih dipinjam":"Telah Kembali";
             System.out.println((i+1)+". "+peminjamanController.showDataByPeminjam(id).get(i).getIdPeminjaman()+" "+
-                    peminjamanController.showDataByPeminjam(id).get(i).getJudulBuku()+" "+
+                    peminjamanController.showDataByPeminjam(id).get(i).getBuku().getJudul()+" "+
                     peminjamanController.showDataByPeminjam(id).get(i).getTglPeminjaman()+" "+
                     peminjamanController.showDataByPeminjam(id).get(i).getTglPengembalian()+" "+
                     status
@@ -318,7 +319,9 @@ public class PerpustakaanApp {
         daftarBuku();
         System.out.print("ISBN BUKU : ");
         String isbn = input.next();
-        peminjamanController.insertPeminjaman(isbn,id);
+        BukuEntity buku = bukuController.getData(isbn);
+        AnggotaEntity anggota = anggotaController.getData(id);
+        peminjamanController.insertPeminjaman(buku,anggota);
     }
 
     public static void editDataAnggota(int id){
@@ -349,14 +352,11 @@ public class PerpustakaanApp {
     }
 
     public static void dataAnggotaById(int id){
-        for (AnggotaEntity anggota: anggotaController.showDataAnggotaById(id)) {
             System.out.println(
-                    anggota.getNama()+" "+
-                    anggota.getPassword()+" "+
-                    anggota.getNoTelp()+" "+
-                    anggota.getAlamat()
+                    anggotaController.getData(id).getNama()+" "+
+                    anggotaController.getData(id).getPassword()+" "+
+                    anggotaController.getData(id).getNoTelp()+" "+
+                    anggotaController.getData(id).getAlamat()
             );
         }
     }
-
-}

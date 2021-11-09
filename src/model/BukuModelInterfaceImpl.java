@@ -88,4 +88,25 @@ public class BukuModelInterfaceImpl implements BukuModelInterface{
         }
         return listBuku;
     }
+
+    @Override
+    public BukuEntity getById(String isbn) {
+        BukuEntity buku = null;
+        try{
+            String sql="SELECT * FROM buku WHERE buku_isbn =? AND buku_ketersediaan = TRUE";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1,isbn);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()){
+                buku = new BukuEntity(rs.getString("buku_isbn"),
+                        rs.getString("buku_judul"),
+                        rs.getString("buku_penerbit"),
+                        rs.getInt("buku_terbit"),
+                        rs.getInt("buku_halaman"));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return buku;
+    }
 }

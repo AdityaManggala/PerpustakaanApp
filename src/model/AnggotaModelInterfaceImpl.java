@@ -74,24 +74,23 @@ public class AnggotaModelInterfaceImpl implements AnggotaModelInterface{
     }
 
     @Override
-    public ArrayList<AnggotaEntity> getById(int id) {
-        ArrayList<AnggotaEntity> anggotaById = new ArrayList<>();
+    public AnggotaEntity getById(int id) {
+        AnggotaEntity anggota = null;
         try{
             String sql = "SELECT * FROM anggota WHERE anggota_id = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setInt(1,id);
             ResultSet rs = statement.executeQuery();
             while (rs.next()){
-                AnggotaEntity anggota = new AnggotaEntity(
+                anggota = new AnggotaEntity(
                         rs.getString("anggota_nama"),
                         rs.getString("anggota_password"),
                         rs.getString("anggota_notelp"),
                         rs.getString("anggota_alamat"));
                 anggota.setId(rs.getInt("anggota_id"));
-                anggotaById.add(anggota);
             }
         }catch (SQLException e){e.printStackTrace();}
-        return anggotaById;
+        return anggota;
     }
 
     @Override

@@ -8,6 +8,7 @@ public interface AnggotaControllerInterface {
     void insertAnggota(String nama, String password, String noTelp, String alamat);
     int login(String nama, String password);
     ArrayList<AnggotaEntity> showAllData();
-    ArrayList<AnggotaEntity> showDataAnggotaById(int id);
+//    ArrayList<AnggotaEntity> showDataAnggotaById(int id);
+    AnggotaEntity getData(int id);
     void updateAkun(int pilihan, String data, int id);
 }

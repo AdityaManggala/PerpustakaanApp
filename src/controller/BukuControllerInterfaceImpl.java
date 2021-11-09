@@ -37,4 +37,9 @@ public class BukuControllerInterfaceImpl implements BukuControllerInterface{
     public ArrayList<BukuEntity> showAllData() {
         return AllObjectModel.bukuModel.getAll();
     }
+
+    @Override
+    public BukuEntity getData(String isbn) {
+        return AllObjectModel.bukuModel.getById(isbn);
+    }
 }

@@ -1,5 +1,7 @@
 package model;
 
+import entity.AnggotaEntity;
+import entity.BukuEntity;
 import helper.DbUtil;
 import entity.PeminjamanEntity;
 
@@ -9,7 +11,7 @@ import java.util.ArrayList;
 
 public class PeminjamanModelInterfaceImpl implements PeminjamanModelInterface{
 
-    private String generateIdPeminjaman(){
+    public String generateIdPeminjaman(){
         String newId = null;
         String data;
         try {
@@ -37,8 +39,8 @@ public class PeminjamanModelInterfaceImpl implements PeminjamanModelInterface{
                     "Values (?,?,?,?,?)";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, generateIdPeminjaman());
-            statement.setString(2,peminjaman.getIsbnBuku());
-            statement.setInt(3,peminjaman.getIdAnggota());
+            statement.setString(2,peminjaman.getBuku().getIsbn());
+            statement.setInt(3,peminjaman.getAnggota().getId());
             statement.setDate(4,Date.valueOf(LocalDate.now()));
             statement.setBoolean(5,false);
             statement.executeUpdate();
@@ -64,26 +66,29 @@ public class PeminjamanModelInterfaceImpl implements PeminjamanModelInterface{
     public ArrayList<PeminjamanEntity> getAll() {
         ArrayList<PeminjamanEntity> listPeminjaman = new ArrayList<>();
         try {
-            String sql = "SELECT p.*, b.buku_judul, a.anggota_nama " +
-                    "FROM peminjaman p " +
-                    "JOIN anggota a on p.anggota_id = a.anggota_id " +
-                    "JOIN buku b on p.buku_isbn = b.buku_isbn " +
+            String sql = "SELECT p.*, b.buku_judul, a.anggota_nama, a.anggota_password\n" +
+                    "FROM peminjaman p\n" +
+                    "JOIN anggota a on p.anggota_id = a.anggota_id\n" +
+                    "JOIN buku b on p.buku_isbn = b.buku_isbn\n" +
                     "ORDER BY peminjaman_id";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()){
                 PeminjamanEntity peminjaman = new PeminjamanEntity();
                 peminjaman.setIdPeminjaman(rs.getString("peminjaman_id"));
-                peminjaman.setIsbnBuku(rs.getString("buku_isbn"));
-                peminjaman.setJudulBuku(rs.getString("buku_judul"));
-                peminjaman.setNamaAnggota(rs.getString("anggota_nama"));
+                BukuEntity buku = new BukuEntity();
+                buku.setIsbn(rs.getString("buku_isbn"));
+                buku.setJudul(rs.getString("buku_judul"));
+                peminjaman.setBuku(buku);
+                AnggotaEntity anggota = new AnggotaEntity(rs.getString("anggota_nama"),rs.getString("anggota_password"));
+                peminjaman.setAnggota(anggota);
                 peminjaman.setTglPeminjaman(rs.getDate("peminjaman_tgl"));
                 peminjaman.setTglPengembalian(rs.getDate("pengembalian_tgl"));
                 peminjaman.setStatusPeminjaman(rs.getBoolean("status"));
                 listPeminjaman.add(peminjaman);
             }
         }catch (SQLException e){
-            System.out.println(e);
+            e.printStackTrace();
         }
         return listPeminjaman;
     }
@@ -99,7 +104,9 @@ public class PeminjamanModelInterfaceImpl implements PeminjamanModelInterface{
             while (rs.next()) {
                 PeminjamanEntity peminjaman = new PeminjamanEntity();
                 peminjaman.setIdPeminjaman(rs.getString("peminjaman_id"));
-                peminjaman.setJudulBuku(rs.getString("buku_judul"));
+                BukuEntity buku = new BukuEntity();
+                buku.setJudul(rs.getString("buku_judul"));
+                peminjaman.setBuku(buku);
                 peminjaman.setTglPeminjaman(rs.getDate("peminjaman_tgl"));
                 peminjaman.setTglPengembalian(rs.getDate("pengembalian_tgl"));
                 peminjaman.setStatusPeminjaman(rs.getBoolean("status"));

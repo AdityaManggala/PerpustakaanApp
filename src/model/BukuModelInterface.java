@@ -13,4 +13,5 @@ public interface BukuModelInterface {
     void updatePenerbit(String isbn, String penerbit);
     void delete(String isbn);
     ArrayList<BukuEntity> getAll();
+    BukuEntity getById(String isbn);
 }
