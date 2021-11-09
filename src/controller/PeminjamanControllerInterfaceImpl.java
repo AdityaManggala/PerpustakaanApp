@@ -1,5 +1,7 @@
 package controller;
 
+import entity.AnggotaEntity;
+import entity.BukuEntity;
 import entity.PeminjamanEntity;
 
 import java.util.ArrayList;
@@ -8,8 +10,8 @@ public class PeminjamanControllerInterfaceImpl implements PeminjamanControllerIn
 
 
     @Override
-    public void insertPeminjaman(String isbnBuku, int idAnggota) {
-        PeminjamanEntity peminjaman = new PeminjamanEntity(isbnBuku,idAnggota);
+    public void insertPeminjaman(BukuEntity buku, AnggotaEntity anggota) {
+        PeminjamanEntity peminjaman = new PeminjamanEntity(buku,anggota);
         AllObjectModel.peminjamanModel.add(peminjaman);
     }
 

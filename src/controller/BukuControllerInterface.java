@@ -10,4 +10,5 @@ public interface BukuControllerInterface {
     void deleteBuku(String isbn);
     void updateBuku(int pilihan, String isbn,String data);
     ArrayList<BukuEntity> showAllData();
+    BukuEntity getData(String isbn);
 }

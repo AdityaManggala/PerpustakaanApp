@@ -11,25 +11,20 @@ import java.awt.event.MouseEvent;
 
 public class AnggotaGui extends ComponentGui{
 
-    int id;
     String text;
-    String nama, password, noTelp,alamat;
-    JTable tblriwayat = new JTable(dataTablePeminjamanByUser(id));
-    JScrollPane spriwayat = new JScrollPane(tblriwayat);
-
     AnggotaGui(int cek){
         initComponent(cek);
     }
 
     void initComponent(int cek){
 
-        for (AnggotaEntity anggota : AllObjectController.anggotaController.showDataAnggotaById(cek)) {
-            this.id =  anggota.getId();
-            this.nama = anggota.getNama();
-            this.password = anggota.getPassword();
-            this.noTelp = anggota.getNoTelp();
-            this.alamat = anggota.getAlamat();
-        }
+//        for (AnggotaEntity anggota : AllObjectController.anggotaController.showDataAnggotaById(cek)) {
+//            this.id =  anggota.getId();
+//            this.nama = anggota.getNama();
+//            this.password = anggota.getPassword();
+//            this.noTelp = anggota.getNoTelp();
+//            this.alamat = anggota.getAlamat();
+//        }
 
         jendela.setSize(800, 600);
         jendela.setTitle("Perpustakaan App");
@@ -50,25 +45,25 @@ public class AnggotaGui extends ComponentGui{
         datadiripanel.setLayout(null);
         lblnama.setBounds(35,20,80,25);
         flnama.setBounds(130,20,130,25);
-        flnama.setText(nama);
+        flnama.setText(AllObjectController.anggotaController.getData(cek).getNama());
         datadiripanel.add(lblnama);
         datadiripanel.add(flnama);
 
         lblpassword.setBounds(35,65,80,25);
         flpass.setBounds(130,65,130,25);
-        flpass.setText(password);
+        flpass.setText(AllObjectController.anggotaController.getData(cek).getPassword());
         datadiripanel.add(lblpassword);
         datadiripanel.add(flpass);
 
         lblalamat.setBounds(35,110,80,25);
         flalamat.setBounds(130,110,130,25);
-        flalamat.setText(alamat);
+        flalamat.setText(AllObjectController.anggotaController.getData(cek).getAlamat());
         datadiripanel.add(flalamat);
         datadiripanel.add(lblalamat);
 
         lblnotelp.setBounds(35,155,80,25);
         flnotelp.setBounds(130,155,130,25);
-        flnotelp.setText(noTelp);
+        flnotelp.setText(AllObjectController.anggotaController.getData(cek).getNoTelp());
         datadiripanel.add(lblnotelp);
         datadiripanel.add(flnotelp);
 
@@ -78,6 +73,8 @@ public class AnggotaGui extends ComponentGui{
         btnubahakun.setBorderPainted(false);
         datadiripanel.add(btnubahakun);
 
+        JTable tblriwayat = new JTable(dataTablePeminjamanByUser(AllObjectController.anggotaController.getData(cek).getId()));
+        JScrollPane spriwayat = new JScrollPane(tblriwayat);
         peminjamanbukupanel.setLayout(new GridLayout(2,1));
         peminjamanbukupanel.add(pinjampanel,0);
         peminjamanbukupanel.add(riwayatpinjampanel,1);
@@ -94,7 +91,7 @@ public class AnggotaGui extends ComponentGui{
 
         riwayatpinjampanel.setBorder(ttlriwayatpinjam);
         riwayatpinjampanel.setLayout(new BorderLayout());
-        tblriwayat.setModel(dataTablePeminjamanByUser(id));
+        tblriwayat.setModel(dataTablePeminjamanByUser(cek));
         riwayatpinjampanel.add(spriwayat,BorderLayout.CENTER);
         riwayatpinjampanel.setBackground(new Color(0xf0e5d8));
 
@@ -124,7 +121,7 @@ public class AnggotaGui extends ComponentGui{
                     String input = JOptionPane.showInputDialog("input password");
                     try {
                         if(input.length()!=0){
-                            AllObjectController.anggotaController.updateAkun(1,input,id);
+                            AllObjectController.anggotaController.updateAkun(1,input,cek);
                             flpass.setText(input);
                         }else {
                             JOptionPane.showMessageDialog(null,"Inputan Kosong");
@@ -137,7 +134,7 @@ public class AnggotaGui extends ComponentGui{
                     String input = JOptionPane.showInputDialog("input Alamat");
                     try {
                         if(input.length()!=0){
-                            AllObjectController.anggotaController.updateAkun(2,input,id);
+                            AllObjectController.anggotaController.updateAkun(2,input,cek);
                             flalamat.setText(input);
                         }else {
                             JOptionPane.showMessageDialog(null,"Inputan Kosong");
@@ -149,7 +146,7 @@ public class AnggotaGui extends ComponentGui{
                     String input = JOptionPane.showInputDialog("input Nomor Telpon");
                     try {
                         if(input.length()!=0){
-                            AllObjectController.anggotaController.updateAkun(3,input,id);
+                            AllObjectController.anggotaController.updateAkun(3,input,cek);
                             flnotelp.setText(input);
                         }else {
                             JOptionPane.showMessageDialog(null,"Inputan Kosong");
@@ -185,8 +182,8 @@ public class AnggotaGui extends ComponentGui{
         btnpinjam.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AllObjectController.peminjamanController.insertPeminjaman(text,id);
-                tblriwayat.setModel(dataTablePeminjamanByUser(id));
+                AllObjectController.peminjamanController.insertPeminjaman(AllObjectController.bukuController.getData(text),AllObjectController.anggotaController.getData(cek));
+                tblriwayat.setModel(dataTablePeminjamanByUser(cek));
             }
         });
 

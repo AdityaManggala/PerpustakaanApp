@@ -16,6 +16,9 @@ public class BukuEntity {
         this.halaman = halaman;
     }
 
+    public BukuEntity() {
+    }
+
     public String getIsbn() {
         return isbn;
     }

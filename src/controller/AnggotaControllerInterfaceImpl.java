@@ -22,8 +22,13 @@ public class AnggotaControllerInterfaceImpl implements AnggotaControllerInterfac
         return AllObjectModel.anggotaModel.getAll();
     }
 
+//    @Override
+//    public ArrayList<AnggotaEntity> showDataAnggotaById(int id) {
+//        return AllObjectModel.anggotaModel.getById(id);
+//    }
+
     @Override
-    public ArrayList<AnggotaEntity> showDataAnggotaById(int id) {
+    public AnggotaEntity getData(int id) {
         return AllObjectModel.anggotaModel.getById(id);
     }
 

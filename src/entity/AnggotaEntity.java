@@ -12,6 +12,10 @@ public class AnggotaEntity extends UserEntity{
         this.alamat = alamat;
     }
 
+    public AnggotaEntity(String nama, String password) {
+        super(nama, password);
+    }
+
     public int getId() {
         return id;
     }

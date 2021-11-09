@@ -5,17 +5,15 @@ import java.sql.Date;
 public class PeminjamanEntity {
 
     private String idPeminjaman;
-    private String isbnBuku;
-    private String judulBuku;
-    private String namaAnggota;
-    private int idAnggota;
+    private BukuEntity buku;
+    private AnggotaEntity anggota;
     private Date tglPeminjaman;
     private Date tglPengembalian;
     private Boolean statusPeminjaman;
 
-    public PeminjamanEntity(String isbnBuku, int idAnggota) {
-        this.isbnBuku = isbnBuku;
-        this.idAnggota = idAnggota;
+    public PeminjamanEntity(BukuEntity buku, AnggotaEntity anggota) {
+        this.buku = buku;
+        this.anggota = anggota;
     }
 
     public PeminjamanEntity() {
@@ -29,36 +27,20 @@ public class PeminjamanEntity {
         this.idPeminjaman = idPeminjaman;
     }
 
-    public String getIsbnBuku() {
-        return isbnBuku;
+    public BukuEntity getBuku() {
+        return buku;
     }
 
-    public void setIsbnBuku(String isbnBuku) {
-        this.isbnBuku = isbnBuku;
+    public void setBuku(BukuEntity buku) {
+        this.buku = buku;
     }
 
-    public String getJudulBuku() {
-        return judulBuku;
+    public AnggotaEntity getAnggota() {
+        return anggota;
     }
 
-    public void setJudulBuku(String judulBuku) {
-        this.judulBuku = judulBuku;
-    }
-
-    public String getNamaAnggota() {
-        return namaAnggota;
-    }
-
-    public void setNamaAnggota(String namaAnggota) {
-        this.namaAnggota = namaAnggota;
-    }
-
-    public int getIdAnggota() {
-        return idAnggota;
-    }
-
-    public void setIdAnggota(int idAnggota) {
-        this.idAnggota = idAnggota;
+    public void setAnggota(AnggotaEntity anggota) {
+        this.anggota = anggota;
     }
 
     public Date getTglPeminjaman() {
