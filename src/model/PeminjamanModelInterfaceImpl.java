@@ -2,7 +2,6 @@ package model;
 
 import entity.AnggotaEntity;
 import entity.BukuEntity;
-import helper.DbUtil;
 import entity.PeminjamanEntity;
 
 import java.sql.*;
@@ -11,7 +10,7 @@ import java.util.ArrayList;
 
 public class PeminjamanModelInterfaceImpl implements PeminjamanModelInterface{
 
-    public String generateIdPeminjaman(){
+    private String generateIdPeminjaman(){
         String newId = null;
         String data;
         try {

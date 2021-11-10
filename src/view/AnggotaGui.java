@@ -18,14 +18,6 @@ public class AnggotaGui extends ComponentGui{
 
     void initComponent(int cek){
 
-//        for (AnggotaEntity anggota : AllObjectController.anggotaController.showDataAnggotaById(cek)) {
-//            this.id =  anggota.getId();
-//            this.nama = anggota.getNama();
-//            this.password = anggota.getPassword();
-//            this.noTelp = anggota.getNoTelp();
-//            this.alamat = anggota.getAlamat();
-//        }
-
         jendela.setSize(800, 600);
         jendela.setTitle("Perpustakaan App");
         jendela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
